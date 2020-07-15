@@ -1,0 +1,17 @@
+{
+  "name": "fizzy-clock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "sound-play": "^1.0.5"
+  },
+  "devDependencies": {
+    "electron": "^9.1.0"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "FizzyApple12",
+  "license": "MIT"
+}

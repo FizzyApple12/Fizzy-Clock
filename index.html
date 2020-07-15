@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Fizzy Clock</title>
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="./assets/icon.png">
+        <style>
+            body {
+                background-color: #212121;
+                margin: 0px;
+                overflow: hidden;
+            }
+
+            #vueapp {
+                width: 100%;
+                height: 100%;
+            }
+
+            .clock-container {
+                width: 100%;
+                height: 50%;
+                text-align: center;
+            }
+
+            #clock {
+                color: #ffffff;
+                font-family: rubik-light;
+                font-size: 82px;
+                margin: 0px;
+            }
+
+            #date {
+                color: #aaaaaa;
+                font-family: rubik-light;
+                font-size: 24px;
+                margin: 0px;
+            }
+
+            @font-face {
+                font-family: rubik-light;
+                src: url(assets/Rubik-Light.ttf);
+            }
+
+            @font-face {
+                font-family: rubik-regular;
+                src: url(assets/Rubik-Regular.ttf);
+            }
+
+            .alarm-container {
+                position: absolute;
+                top: 50%;
+                overflow-y: auto;
+                height: 50%;
+                width: 100%;
+            }
+
+            .alarm-l {
+                background-color: #313131;
+                margin: 0px;
+                height: 22px;
+            }
+
+            .alarm-d {
+                background-color: #212121;
+                margin: 0px;
+                height: 22px;
+            }
+
+            .alarm-time {
+                color: #ffffff;
+                background-color: #00000000;
+                border: none;
+                font-family: rubik-light;
+                font-size: 18px;
+                margin: 0px;
+            }
+
+            .alarm-description {
+                color: #aaaaaa;
+                background-color: #00000000;
+                border: none;
+                font-family: rubik-light;
+                font-size: 18px;
+                margin: 0px;
+            }
+
+            .alarm-center {
+                color: #aaaaaa;
+                font-family: rubik-light;
+                font-size: 18px;
+                text-align: center;
+                width: 100%;
+                margin: 0px;
+            }
+
+            .alarm-remove {
+                color: #aaaaaa;
+                font-family: rubik-light;
+                font-size: 18px;
+                text-align: center;
+                height: 100%;
+                margin: 0px;
+                vertical-align:top;
+            }
+
+            .alarm-add {
+                position: absolute;
+                right: 16px;
+                bottom: 16px;
+                height: 22px;
+            }
+
+            *:focus {
+                outline: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="vueapp">
+            <div class="clock-container">
+                <p id="clock">{{ (time.getHours() > 12) ? time.getHours() - 12 : time.getHours() }}:{{ (time.getMinutes() < 10) ? '0' + time.getMinutes() : time.getMinutes() }} {{ (time.getHours() > 12) ? 'pm' : 'am' }}</p>
+                <p id="date">{{ weekdays[time.getDay()] }} {{ months[time.getMonth()] }} {{ time.getDate() }}, {{ time.getFullYear() }}</p>
+            </div>
+            <div class="alarm-container">
+                <div v-for="(index, alarm) in alarms" v-bind:class="(index % 2 === 0) ? 'alarm-d' : 'alarm-l'">
+                    <input class="alarm-time" onkeyup="saveAlarms()" v-model="alarms[index].time" value="{{ alarm.time }}" placeholder="cron time">
+                    <input class="alarm-description" onkeyup="saveAlarms()" v-model="alarms[index].description" value="{{ alarm.description }}" placeholder="description">
+                    <input class="alarm-remove" type="image" src="./assets/alarm_off-white-48dp.svg" onclick="removeAlarm({{ index }})"/>
+                </div>
+                <div v-if="alarms.length === 0" class="alarm-d">
+                    <p class="alarm-center">no alarms set</p>
+                </div>
+            </div>
+            <input class="alarm-add" type="image" src="./assets/alarm_add-white-48dp.svg" onclick="addAlarm()"/>
+        </div>
+        <script src="./vue.min.js"></script>
+        <script src="./index.js"></script>
+    </body>
+</html>

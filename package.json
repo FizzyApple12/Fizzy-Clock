@@ -7,7 +7,7 @@
     "sound-play": "^1.0.5"
   },
   "devDependencies": {
-    "electron": "^9.1.0"
+    "electron": "^11.5.0"
   },
   "scripts": {
     "start": "electron ."

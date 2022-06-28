@@ -1,0 +1,3 @@
+{
+  "description": "This is a tool I designed back when I was on MacOS to fix the lack of a good clock and alarm program. It uses CRON-style scheduling for greater control over alarms and to add an ease of transfer factor from UNIX process scheduling."
+}
